@@ -75,7 +75,7 @@ public class CollaboratorFragment extends ListFragment implements AdapterView.On
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            View rowView = inflater.inflate(R.layout.custom_tab, parent, false);
+            View rowView = inflater.inflate(R.layout.item_in_list, parent, false);
             //todo create sub view of the list.
 /*            TextView textView = (TextView) rowView.findViewById(R.id.diaryTextView1);
             ImageView imageView = (ImageView) rowView.findViewById(R.id.diaryImageView1);
