@@ -11,13 +11,28 @@ import info.androidhive.materialtabs.R;
 
 public class OneFragment extends Fragment{
 
+    private String NAME_TAG;
+    private final static String ARGUMENT_TAG = "DETAIL";
+
     public OneFragment() {
         // Required empty public constructor
     }
 
+    public static OneFragment newInstance(String  Opportunity) {
+        OneFragment myFragment = new OneFragment();
+
+        Bundle args = new Bundle();
+        args.putString(ARGUMENT_TAG, Opportunity);
+        myFragment.setArguments(args);
+
+        return myFragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        NAME_TAG = getArguments().getString(ARGUMENT_TAG);
     }
 
     @Override

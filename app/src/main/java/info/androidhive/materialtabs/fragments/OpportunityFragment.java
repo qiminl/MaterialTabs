@@ -57,14 +57,6 @@ public class OpportunityFragment extends ListFragment implements AdapterView.OnI
         View view = inflater.inflate(R.layout.fragment_opportunity, container, false);
         Log.d("debug", "collaborator view created");
 
-
-        //todo use fragment or activity for details??
-        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        ViewPagerAdapter adapter2 = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
-        adapter2.addFrag(new VolunteerFragment(), "Volunteer");
-        //Log.d("debug", "VolunteerFragment() set");
-        viewPager.setAdapter(adapter2);
-
         //Log.d("debug", " OpportunityFragment view created");
         return view;
     }
@@ -74,6 +66,15 @@ public class OpportunityFragment extends ListFragment implements AdapterView.OnI
         super.onActivityCreated(savedInstanceState);
         //ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(),R.array.Planets, android.R.layout.simple_list_item_1);
 
+
+        //todo use fragment or activity for details??
+        /*viewPager = (ViewPager) getView().findViewById(R.id.viewpager);
+        ViewPagerAdapter adapter2 = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
+        adapter2.addFrag(new VolunteerFragment(), "Volunteer");
+        //Log.d("debug", "VolunteerFragment() set");
+        viewPager.setAdapter(adapter2);
+        getListView().setupWithViewPager();*/
+
         //todo should move to onCreateView later, now here for testing purpose
         StableArrayAdapter adapter = new StableArrayAdapter(getActivity(), R.layout.item_in_list, list);
         setListAdapter(adapter);
@@ -82,7 +83,18 @@ public class OpportunityFragment extends ListFragment implements AdapterView.OnI
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.d("debug","position=" + position + "; id="+id);
+        Log.d("debug", "view.getTag() = " + view.getTag() );
+        Log.d("debug", "parent.getItemAtPosition(position) = " + parent.getItemAtPosition(position));
+        //todo decide using activity or fragment
 
+        OneFragment nextFrag= new OneFragment().newInstance("Opportunity");
+        this.getFragmentManager().beginTransaction()
+                .replace(((ViewGroup)getView().getParent()).getId(), nextFrag,null)
+                .addToBackStack(null)
+                .commit();
+
+        //parent.getItemAtPosition(position);
     }
 
     private class StableArrayAdapter extends ArrayAdapter<String> {
@@ -98,6 +110,17 @@ public class OpportunityFragment extends ListFragment implements AdapterView.OnI
                 mIdMap.put(i, company_list.get(i));
             }
         }
+
+        @Override
+        public int getCount(){
+            return mIdMap.size();
+        }
+
+        @Override
+        public String getItem(int position){
+            return mIdMap.get(position);
+        }
+
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -129,6 +152,12 @@ public class OpportunityFragment extends ListFragment implements AdapterView.OnI
             //MediaStore.Images.Media.insertImage(getContentResolver(), yourBitmap, yourTitle , yourDescription);
             return rowView;
         }
+        //can set motion for pic/text
+        private AdapterView.OnItemClickListener mOnGalleryClick = new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+            }
+        };
 
     }
 }

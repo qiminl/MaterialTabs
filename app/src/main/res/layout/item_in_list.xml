@@ -28,8 +28,8 @@
                 android:layout_weight="0.2">
                 <ImageView android:id="@+id/image1"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:padding="16dp"/>
+                    android:layout_height="fill_parent"/>
+                    <!-- android:padding="16dp"-->
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dip"
