@@ -1,17 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:orientation="horizontal">
+    <!--android:orientation="vertical"-->
 
-    <TextView android:id="@+id/text1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"/>
+    <RelativeLayout
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.10">
+    </RelativeLayout>
 
-    <ImageView android:id="@+id/image1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"/>
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.8">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/back"
+            android:padding="16dp"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.2">
+                <ImageView android:id="@+id/image1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="16dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.8">
+                <TextView android:id="@+id/text1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="16dp"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.10">
+    </RelativeLayout>
+
+</LinearLayout>

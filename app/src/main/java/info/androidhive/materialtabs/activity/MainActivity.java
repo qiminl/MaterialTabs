@@ -21,16 +21,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        btnSimpleTabs = (Button) findViewById(R.id.btnSimpleTabs);
-        btnScrollableTabs = (Button) findViewById(R.id.btnScrollableTabs);
-        btnIconTextTabs = (Button) findViewById(R.id.btnIconTextTabs);
-        btnIconTabs = (Button) findViewById(R.id.btnIconTabs);
+        //btnSimpleTabs = (Button) findViewById(R.id.btnSimpleTabs);
+        //btnScrollableTabs = (Button) findViewById(R.id.btnScrollableTabs);
+        //btnIconTextTabs = (Button) findViewById(R.id.btnIconTextTabs);
+        //btnIconTabs = (Button) findViewById(R.id.btnIconTabs);
         btnCustomIconTextTabs = (Button) findViewById(R.id.btnCustomIconTabs);
 
-        btnSimpleTabs.setOnClickListener(this);
-        btnScrollableTabs.setOnClickListener(this);
-        btnIconTextTabs.setOnClickListener(this);
-        btnIconTabs.setOnClickListener(this);
+        //btnSimpleTabs.setOnClickListener(this);
+        //btnScrollableTabs.setOnClickListener(this);
+        //btnIconTextTabs.setOnClickListener(this);
+        //btnIconTabs.setOnClickListener(this);
         btnCustomIconTextTabs.setOnClickListener(this);
 
     }
