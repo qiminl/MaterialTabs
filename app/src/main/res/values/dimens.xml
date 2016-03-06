@@ -6,4 +6,14 @@
     <dimen name="tab_padding_bottom">16dp</dimen>
     <dimen name="tab_label">14sp</dimen>
     <dimen name="custom_tab_layout_height">72dp</dimen>
+
+    <!-- Opportunity Detail fragment-->
+
+    <dimen name="OD_Detail_Margin_bottom">10dp</dimen>
+    <dimen name="OD_Title_Margin_top">20dp</dimen>
+    <dimen name="OD_Title_Margin_left">20dp</dimen>
+    <dimen name="OD_Description_Margin_left_right">40dp</dimen>
+    <dimen name="OD_Like_Margin">17dp</dimen>
+    <dimen name="OD_List_Margin">17dp</dimen>
+
 </resources>

@@ -26,6 +26,8 @@ import info.androidhive.materialtabs.R;
 import info.androidhive.materialtabs.activity.ViewPagerAdapter;
 
 /**
+ * Opportunity Fragment with following component:
+ *      list of opportunity
  * Created by liuqi on 3/4/2016.
  */
 public class OpportunityFragment extends ListFragment implements AdapterView.OnItemClickListener{
@@ -75,7 +77,6 @@ public class OpportunityFragment extends ListFragment implements AdapterView.OnI
         viewPager.setAdapter(adapter2);
         getListView().setupWithViewPager();*/
 
-        //todo should move to onCreateView later, now here for testing purpose
         StableArrayAdapter adapter = new StableArrayAdapter(getActivity(), R.layout.item_in_list, list);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
@@ -88,13 +89,13 @@ public class OpportunityFragment extends ListFragment implements AdapterView.OnI
         Log.d("debug", "parent.getItemAtPosition(position) = " + parent.getItemAtPosition(position));
         //todo decide using activity or fragment
 
-        OneFragment nextFrag= new OneFragment().newInstance("Opportunity");
+        String object_name = (String)parent.getItemAtPosition(position);
+        //jumping to detail of selected object
+        OneFragment nextFrag= new OneFragment().newInstance(object_name);
         this.getFragmentManager().beginTransaction()
                 .replace(((ViewGroup)getView().getParent()).getId(), nextFrag,null)
                 .addToBackStack(null)
                 .commit();
-
-        //parent.getItemAtPosition(position);
     }
 
     private class StableArrayAdapter extends ArrayAdapter<String> {

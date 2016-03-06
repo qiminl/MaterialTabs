@@ -29,5 +29,11 @@
 
     <string name="hello_world">Hello world!</string>
 
+    <!-- Opportunity Detail fragment-->
+    <string name = "Description">wowowowowowoowowowowowowoowowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+    wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+    wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+    wwwwwwwwwwwwwwwwwwwwwwwwwww</string>
+
 
 </resources>
