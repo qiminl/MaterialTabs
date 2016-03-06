@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btnSimpleTabs:
+            /*case R.id.btnSimpleTabs:
                 startActivity(new Intent(MainActivity.this, SimpleTabsActivity.class));
                 break;
             case R.id.btnScrollableTabs:
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnIconTabs:
                 startActivity(new Intent(MainActivity.this, IconTabsActivity.class));
-                break;
+                break;*/
             case R.id.btnCustomIconTabs:
                 startActivity(new Intent(MainActivity.this, CustomViewIconTextTabsActivity.class));
                 break;

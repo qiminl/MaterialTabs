@@ -19,31 +19,35 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import info.androidhive.materialtabs.Comment;
+import info.androidhive.materialtabs.DBHandler;
 import info.androidhive.materialtabs.R;
 
 
 public class OneFragment extends ListFragment implements AdapterView.OnItemClickListener{
 
-    private String NAME_TAG;
+    private String NAME_TAG = "not set";
     private final static String ARGUMENT_TAG = "DETAIL";
 
-    private ArrayList<String> commantList = new ArrayList<>();
+    private ArrayList<String> commentList = new ArrayList<>();
+
+    private ArrayList<Comment> comment_list = new ArrayList<>();
     private TextView title, date, description, like;
     private ImageView logo;
     private FloatingActionButton commant, fab;
-    //private ListView listView;
+    private ListView listView;
 
     public OneFragment() {
         // Required empty public constructor
     }
 
-    public static OneFragment newInstance(String  Opportunity) {
+    public OneFragment newInstance(String  Opportunity) {
         OneFragment myFragment = new OneFragment();
 
         Bundle args = new Bundle();
         args.putString(ARGUMENT_TAG, Opportunity);
-        myFragment.setArguments(args);
-
+        if(myFragment.getArguments() == null)
+            myFragment.setArguments(args);
         return myFragment;
     }
 
@@ -51,8 +55,14 @@ public class OneFragment extends ListFragment implements AdapterView.OnItemClick
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        NAME_TAG = getArguments().getString(ARGUMENT_TAG);
-        commantList.add("comment 1");
+        if(getArguments() !=null)
+            NAME_TAG = getArguments().getString(ARGUMENT_TAG);
+        Log.d("debug", "NAME_TAG" + NAME_TAG);
+        comment_list.add(new Comment("1", "1", "1", "none", "none", "wow wow wow wow"));
+        comment_list.add(new Comment("2","1","1","none","none","la la la la"));
+        comment_list.add(new Comment("3","1","1","none","none","wow wow wow wow"));
+        comment_list.add(new Comment("4","1","1","none","none","la la la la"));
+        comment_list.add(new Comment("5","1","1","none","none","wow wow wow wow"));
     }
 
     @Override
@@ -67,7 +77,7 @@ public class OneFragment extends ListFragment implements AdapterView.OnItemClick
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         View view = getView();
-
+        //Log.d("debug", "getTargetFragment().getTag() = " + getTargetFragment().getTag());
         //todo build db to fed data (a DB handler will be great)
         title = (TextView) view.findViewById(R.id.title);
         title.setText(NAME_TAG);
@@ -76,21 +86,37 @@ public class OneFragment extends ListFragment implements AdapterView.OnItemClick
         date.setText("date");
 
         description= (TextView) view.findViewById(R.id.description);
-        //description.setText("");
+        description.setText("123123 1231231231 2312 31 231 2312312");
+        Log.d("debug", "view created");
 
         like= (TextView) view.findViewById(R.id.like);
+        like.setText("+1024");
 
         logo= (ImageView) view.findViewById(R.id.image);
+        logo.setImageResource(R.drawable.testpic3);
 
-        commant =  (FloatingActionButton) view.findViewById(R.id.commant);
-        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        //commant =  (FloatingActionButton) view.findViewById(R.id.comment);
+        //fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
-        //listView = (ListView) view.findViewById(R.id.list_item);
-        StableArrayAdapter adapter = new StableArrayAdapter(getActivity(), R.layout.item_in_list, commantList);
+        DBHandler myDiaryDBHandler = new DBHandler(this.getContext());
+
+        commentList.add(myDiaryDBHandler.findCommentByID("1").getCOLUMN_COMMENT());
+        commentList.add(myDiaryDBHandler.findCommentByID("2").getCOLUMN_COMMENT());
+        commentList.add(myDiaryDBHandler.findCommentByID("3").getCOLUMN_COMMENT());
+        commentList.add(myDiaryDBHandler.findCommentByID("4").getCOLUMN_COMMENT());
+        for(String a : commentList){
+            Log.d("debug", "commentList: " + a);
+        }
+
+
+        listView = (ListView) view.findViewById(android.R.id.list);
+        StableArrayAdapter adapter = new StableArrayAdapter(getActivity(), R.layout.item_in_list, commentList);
         //todo create a pool for adpater to work on memory
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
+        getListView().setVisibility(View.INVISIBLE);
     }
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -100,13 +126,13 @@ public class OneFragment extends ListFragment implements AdapterView.OnItemClick
         //todo decide using activity or fragment
 
         String object_name = (String)parent.getItemAtPosition(position);
-        /*
+
         //jumping to detail of selected object
         OneFragment nextFrag= new OneFragment().newInstance(object_name);
         this.getFragmentManager().beginTransaction()
                 .replace(((ViewGroup)getView().getParent()).getId(), nextFrag,null)
                 .addToBackStack(null)
-                .commit();*/
+                .commit();
     }
     private class StableArrayAdapter extends ArrayAdapter<String> {
         HashMap< Integer, String> mIdMap = new HashMap< Integer, String>();
@@ -132,7 +158,6 @@ public class OneFragment extends ListFragment implements AdapterView.OnItemClick
             return mIdMap.get(position);
         }
 
-
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = (LayoutInflater) context
@@ -141,6 +166,7 @@ public class OneFragment extends ListFragment implements AdapterView.OnItemClick
             View rowView = inflater.inflate(R.layout.item_in_list, parent, false);
 
             TextView textView = (TextView) rowView.findViewById(R.id.text1);
+
             ImageView imageView = (ImageView) rowView.findViewById(R.id.image1);
             imageView.setAdjustViewBounds(true);//adjust ratio
 
@@ -169,7 +195,6 @@ public class OneFragment extends ListFragment implements AdapterView.OnItemClick
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
             }
         };
-
     }
 
 }

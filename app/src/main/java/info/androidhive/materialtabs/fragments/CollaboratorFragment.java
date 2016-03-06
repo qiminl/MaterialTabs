@@ -51,8 +51,8 @@ public class CollaboratorFragment extends ListFragment implements AdapterView.On
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d("debug", " collaborator onCreateView");
         list.clear();
+        //todo create company class for this
         list.add("Company 1");        list.add("Company 2");        list.add("Company 3");
         list.add("Company 4");        list.add("Company 5");
         View view = inflater.inflate(R.layout.fragment_collaborator, container, false);
@@ -66,9 +66,18 @@ public class CollaboratorFragment extends ListFragment implements AdapterView.On
         //ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(),R.array.Planets, android.R.layout.simple_list_item_1);
 
         //todo #!@@#!@$%
+
+        getActivity().setTitle("Collaborator");
         StableArrayAdapter adapter = new StableArrayAdapter(getActivity(), R.layout.item_in_list, list);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //getActivity().setTitle("Collaborator");
     }
 
     @Override

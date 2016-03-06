@@ -15,8 +15,8 @@
         android:background="@drawable/back"
         android:layout_marginBottom="@dimen/OD_Detail_Margin_bottom">
 
-        <!-- This linearLayout is used to didvided heading-->
-        <LinearLayout android:id="@+id/heading_linear_layout"
+        <!-- This linearLayout is used to divided heading-->
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
@@ -27,12 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:textColor="@color/ODtitle"
-
-                android:layout_marginRight="@dimen/OD_Title_Margin_left"
-                android:layout_marginLeft="@dimen/OD_Title_Margin_left"
-
-                android:layout_marginTop="@dimen/OD_Title_Margin_top"
-                android:layout_marginBottom="10dp"
+                android:layout_margin="20dp"
 
                 android:text="Title Setting should not be extend"
                 android:textSize="20dp"
@@ -83,7 +78,7 @@
     <!-- Might wanna wrap this as view group-->
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/commant"
+        android:id="@+id/comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -104,7 +99,7 @@
         android:clickable="true"
         android:src="@drawable/ic_tab_favourite"
         android:layout_below="@+id/details"
-        android:layout_toLeftOf="@+id/commant"
+        android:layout_toLeftOf="@+id/comment"
         android:layout_marginLeft = "@dimen/OD_Like_Margin"
         android:layout_marginStart= "@dimen/OD_Like_Margin"
         />
@@ -123,11 +118,11 @@
         />
 
     <ListView
-        android:id = "@+id/list"
+        android:id = "@android:id/list"
         android:layout_margin = "@dimen/OD_List_Margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/commant"
+        android:layout_below="@+id/comment"
         />
 
 </RelativeLayout>
