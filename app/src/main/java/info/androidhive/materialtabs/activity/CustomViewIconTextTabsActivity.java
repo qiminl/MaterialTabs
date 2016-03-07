@@ -56,7 +56,10 @@ public class CustomViewIconTextTabsActivity extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
-        //view page listener
+        //todo solve view page overlap problem
+        viewPager.setPageMargin(-100);
+        viewPager.setHorizontalFadingEdgeEnabled(true);
+        viewPager.setFadingEdgeLength(50);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -88,6 +91,7 @@ public class CustomViewIconTextTabsActivity extends AppCompatActivity {
                         setTitle(title);
                         List<Fragment> fragments = fragmentManager.getFragments();
                         //Log.d("debug", " fragment size =  " + fragments.size());
+                        //todo instead of hiding, should really remove fragment
                         for(Fragment i : fragments){
                             if(i != null) {
                                 if (i.getTag() != DETAIL_TAG) {
@@ -121,6 +125,12 @@ public class CustomViewIconTextTabsActivity extends AppCompatActivity {
                     }
                 });
         setupTabIcons();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //todo handle onResume errors
     }
 
     /**

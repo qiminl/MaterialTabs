@@ -104,6 +104,7 @@ public class OneFragment extends ListFragment implements AdapterView.OnItemClick
 
         DBHandler myDiaryDBHandler = new DBHandler(this.getContext());
 
+        //todo put entire comment data into list
         commentList.add(myDiaryDBHandler.findCommentByID("1").getCOLUMN_COMMENT());
         commentList.add(myDiaryDBHandler.findCommentByID("2").getCOLUMN_COMMENT());
         commentList.add(myDiaryDBHandler.findCommentByID("3").getCOLUMN_COMMENT());

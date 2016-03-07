@@ -1,127 +1,136 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView02"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     >
 
-    <!-- This linearLayout is used to didvided screen-->
-    <LinearLayout
-        android:id = "@+id/details"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/back"
-        android:layout_marginBottom="@dimen/OD_Detail_Margin_bottom">
-
-        <!-- This linearLayout is used to divided heading-->
+        <!-- This linearLayout is used to didvided screen-->
         <LinearLayout
+            android:id = "@+id/details"
             android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:orientation="vertical"
+            android:background="@drawable/back"
+            android:layout_marginBottom="@dimen/OD_Detail_Margin_bottom">
 
-            <TextView android:id="@+id/title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:textColor="@color/ODtitle"
-                android:layout_margin="20dp"
+            <!-- This linearLayout is used to divided heading-->
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:layout_weight="1">
 
-                android:text="Title Setting should not be extend"
+                <TextView android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:textColor="@color/ODtitle"
+                    android:layout_margin="10dp"
+
+                    android:text="Title Setting should not be extend"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    />
+                <TextView android:id="@+id/date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+
+                    android:text="Date"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+
+            <ImageView android:id = "@+id/image"
+                android:layout_height="0dp"
+                android:layout_width="wrap_content"
+                android:layout_weight="4"
+
+                android:layout_marginLeft="@dimen/OD_Description_Margin_left_right"
+                android:layout_marginRight="@dimen/OD_Description_Margin_left_right"
+
+                android:src = "@android:drawable/ic_delete"
+                />
+
+            <TextView android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:layout_below = "@+id/Title"
+
+                android:layout_marginLeft="@dimen/OD_Description_Margin_left_right"
+                android:layout_marginRight="@dimen/OD_Description_Margin_left_right"
+                android:layout_marginBottom="10dp"
+
+                android:text="@string/Description"
                 android:textSize="20dp"
                 android:textStyle="bold"
+                android:layout_centerInParent="true"
                 />
-            <TextView android:id="@+id/date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="20dp"
 
-                android:text="Date"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                />
         </LinearLayout>
 
-        <ImageView android:id = "@+id/image"
-            android:layout_height="0dp"
-            android:layout_width="wrap_content"
-            android:layout_weight="4"
-
-            android:layout_marginLeft="@dimen/OD_Description_Margin_left_right"
-            android:layout_marginRight="@dimen/OD_Description_Margin_left_right"
-
-            android:src = "@android:drawable/ic_delete"
-            />
-
-        <TextView android:id="@+id/description"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="4"
-            android:layout_below = "@+id/Title"
-
-            android:layout_marginLeft="@dimen/OD_Description_Margin_left_right"
-            android:layout_marginRight="@dimen/OD_Description_Margin_left_right"
-            android:layout_marginBottom="10dp"
-
-            android:text="@string/Description"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_centerInParent="true"
-            />
-
-    </LinearLayout>
-
-    <!-- Might wanna wrap this as view group-->
-    <RelativeLayout
-        android:id = "@+id/buttons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/details"
-        >
-        <android.support.design.widget.FloatingActionButton android:id="@+id/comment"
+        <!-- Might wanna wrap this as view group-->
+        <RelativeLayout
+            android:id = "@+id/buttons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            android:layout_below="@+id/details"
+            >
+            <android.support.design.widget.FloatingActionButton android:id="@+id/comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
 
-            android:clickable="true"
-            android:src="@drawable/ic_tab_call"
+                android:clickable="true"
+                android:src="@drawable/ic_tab_call"
 
-            android:layout_marginLeft="@dimen/OD_Like_Margin"
-            android:layout_marginRight="@dimen/OD_Like_Margin"
-            android:layout_marginStart="@dimen/OD_Like_Margin"
-            android:adjustViewBounds = "true"/>
+                android:layout_marginLeft="@dimen/OD_Like_Margin"
+                android:layout_marginRight="@dimen/OD_Like_Margin"
+                android:layout_marginStart="@dimen/OD_Like_Margin"
+                android:adjustViewBounds = "true"/>
 
-        <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/comment"
+            <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/comment"
 
-            android:clickable="true"
-            android:src="@drawable/ic_tab_favourite"
-            android:layout_marginLeft = "@dimen/OD_Like_Margin"
-            android:layout_marginStart= "@dimen/OD_Like_Margin"
-            />
+                android:clickable="true"
+                android:src="@drawable/ic_tab_favourite"
+                android:layout_marginLeft = "@dimen/OD_Like_Margin"
+                android:layout_marginStart= "@dimen/OD_Like_Margin"
+                />
 
-        <TextView  android:id="@+id/like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/fab"
+            <TextView  android:id="@+id/like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/fab"
 
-            android:text="Like +1024"
-            android:textSize="15dp"
-            android:textStyle="bold"
+                android:text="Like +1024"
+                android:textSize="15dp"
+                android:textStyle="bold"
 
-            android:layout_marginTop="@dimen/OD_Like_Margin"
-            />
+                android:layout_marginTop="@dimen/OD_Like_Margin"
+                />
+
+        </RelativeLayout>
+
+            <ListView  android:id = "@android:id/list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/buttons"
+                />
+
     </RelativeLayout>
 
-    <ListView  android:id = "@android:id/list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttons"
-        />
-
-</RelativeLayout>
+</ScrollView>
