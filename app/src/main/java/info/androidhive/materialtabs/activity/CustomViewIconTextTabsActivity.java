@@ -1,24 +1,16 @@
 package info.androidhive.materialtabs.activity;
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v4.app.ListFragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.TabHost;
 import android.widget.TextView;
 
-import android.support.v4.app.FragmentStatePagerAdapter;
-import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.materialtabs.Comment;
@@ -55,7 +47,11 @@ public class CustomViewIconTextTabsActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        try{
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }catch (NullPointerException e){
+            Log.d("debug","should handle null pointer exception @ CustomView");
+        }
         Log.d("debug", "toolbar set");
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -79,6 +75,11 @@ public class CustomViewIconTextTabsActivity extends AppCompatActivity {
         tabLayout.setOnTabSelectedListener(
                 new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
                     @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+                        super.onTabReselected(tab);
+                    }
+
+                    @Override
                     public void onTabSelected(TabLayout.Tab tab) {
 
                         super.onTabSelected(tab);
@@ -88,8 +89,16 @@ public class CustomViewIconTextTabsActivity extends AppCompatActivity {
                         List<Fragment> fragments = fragmentManager.getFragments();
                         //Log.d("debug", " fragment size =  " + fragments.size());
                         for(Fragment i : fragments){
-                            fragmentManager.beginTransaction().hide(i).commit();
-                            //Log.d("debug", " fragment hided =  "+ i.getTag());
+                            if(i != null) {
+                                if (i.getTag() != DETAIL_TAG) {
+                                    fragmentManager.beginTransaction().hide(i).commit();
+                                } else {
+                                    Fragment myFrag = adapter.getItem("Opportunity");
+                                    //Log.d("debug", " fragment selected =  " + myFrag.getTag());
+                                    fragmentManager.beginTransaction().show(myFrag).commit();
+                                    fragmentManager.beginTransaction().remove(i).commit();
+                                }
+                            }
                         }
                         if(tab.getText() == "Opportunity"){
                             Fragment myFrag = adapter.getItem("Opportunity");
@@ -109,59 +118,6 @@ public class CustomViewIconTextTabsActivity extends AppCompatActivity {
                             fragmentManager.beginTransaction().show(myFrag).commit();
                         }
                         //todo clean the unused code
-                        //These create views on top of the frame.
-                        /*
-                        for(Fragment f : fragments){
-                            //Log.d("debug", " fragment = " + f.getTag());
-                            //Log.d("debug", " fragment position in adapter= " + adapter.getListPosition(f.getTag()));
-                            //fragmentManager.beginTransaction().remove(f).commit();
-                        }
-                        if(tab.getText() == "Opportunity"){
-                            Log.d("debug", "Tab Opportunity clicked");
-
-                            String tempTag = adapter.getTag("Opportunity");
-                            Log.d("debug", " fragment position in adapter=" +tempTag );
-                            Fragment fragment = getSupportFragmentManager().findFragmentByTag(tempTag);
-                            fragmentManager.beginTransaction().remove(fragment);
-                            Log.d("debug", " fragment removed");
-
-                            fragmentManager.beginTransaction()
-                                    .add(R.id.container, new OpportunityFragment()).commit();
-                        }else if(tab.getText() == "Event"){
-                            Log.d("debug","Tab Event clicked");
-
-                            String tempTag = adapter.getTag("Event");
-                            Log.d("debug", " fragment position in adapter=" +tempTag );
-                            Fragment fragment = getSupportFragmentManager().findFragmentByTag(tempTag);
-                            fragmentManager.beginTransaction().remove(fragment);
-                            Log.d("debug", " fragment removed");
-
-                            fragmentManager.beginTransaction()
-                                    .add(R.id.container, new EventFragment()).commit();
-                        }else if(tab.getText() == "Collaborator"){
-                            Log.d("debug","Tab nAclicked");
-
-                            String tempTag = adapter.getTag("Collaborator");
-                            Log.d("debug", " fragment position in adapter=" +tempTag );
-                            Fragment fragment = getSupportFragmentManager().findFragmentByTag(tempTag);
-                            fragmentManager.beginTransaction().remove(fragment);
-                            Log.d("debug", " fragment removed");
-
-                            fragmentManager.beginTransaction()
-                                    .add(R.id.container, new CollaboratorFragment()).commit();
-                        }else if(tab.getText() == "Volunteer"){
-                            Log.d("debug","Tab Volunteer clicked");
-
-                            String tempTag = adapter.getTag("Volunteer");
-                            Log.d("debug", " fragment position in adapter=" +tempTag );
-                            Fragment fragment = getSupportFragmentManager().findFragmentByTag(tempTag);
-                            fragmentManager.beginTransaction().remove(fragment);
-                            Log.d("debug", " fragment removed");
-
-                            fragmentManager.beginTransaction()
-                                    .add(R.id.container,new VolunteerFragment() ).commit();
-                        }
-                        */
                     }
                 });
         setupTabIcons();
@@ -199,7 +155,7 @@ public class CustomViewIconTextTabsActivity extends AppCompatActivity {
 
     /**
      * Adding fragments to ViewPager
-     * @param viewPager
+     * @param viewPager viewPager area in xml
      */
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
