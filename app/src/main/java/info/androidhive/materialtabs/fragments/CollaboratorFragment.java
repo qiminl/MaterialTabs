@@ -56,7 +56,7 @@ public class CollaboratorFragment extends ListFragment implements AdapterView.On
         list.add("Company 1");        list.add("Company 2");        list.add("Company 3");
         list.add("Company 4");        list.add("Company 5");
         View view = inflater.inflate(R.layout.fragment_collaborator, container, false);
-        Log.d("debug", "collaborator view created");
+        //Log.d("debug", "collaborator view created");
         return view;
     }
 

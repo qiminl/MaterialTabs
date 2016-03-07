@@ -26,7 +26,7 @@ public class EventFragment  extends ListFragment implements AdapterView.OnItemCl
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //todo hmm
-        Log.d("debug", "event view created");
+        //Log.d("debug", "event view created");
         return inflater.inflate(R.layout.fragment_opportunity, container, false);
     }
 

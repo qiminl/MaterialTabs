@@ -36,6 +36,7 @@ public class CustomViewIconTextTabsActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ViewPagerAdapter adapter = null;
+    private String DETAIL_TAG = "detail_tag";//todo make it public in @string
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,18 @@ public class CustomViewIconTextTabsActivity extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
+        //view page listener
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+            @Override
+            public void onPageSelected(int position) {
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
         Log.d("debug", "viewPager set");
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -67,34 +80,88 @@ public class CustomViewIconTextTabsActivity extends AppCompatActivity {
                 new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
-                        FragmentManager fragmentManager = getSupportFragmentManager();
-                         /*List<Fragment> fragments = fragmentManager.getFragments();
-                        if(fragments != null){
-                            for (Fragment f : fragments) {
-                                fragmentManager.beginTransaction().remove(f).commitAllowingStateLoss();
-                            }
-                        }*/
-                        super.onTabSelected(tab);
 
-                        if(tab.getText() == "Opportunity"){
-                            Log.d("debug","Tab Opportunity clicked");
-                            fragmentManager.beginTransaction()
-                                    .replace(R.id.container, new OpportunityFragment()).commit();
-                        }else if(tab.getText() == "Event"){
-                            Log.d("debug","Tab Event clicked");
-                            fragmentManager.beginTransaction()
-                                    .replace(R.id.container,new EventFragment() ).commit();
-                        }else if(tab.getText() == "Collaborator"){
-                            Log.d("debug","Tab Collaborator clicked");
-                            fragmentManager.beginTransaction()
-                                    .replace(R.id.container,new CollaboratorFragment()).commit();
-                        }else if(tab.getText() == "Volunteer"){
-                            Log.d("debug","Tab Volunteer clicked");
-                            fragmentManager.beginTransaction()
-                                    .replace(R.id.container,new VolunteerFragment() ).commit();
-                        }
+                        super.onTabSelected(tab);
+                        FragmentManager fragmentManager = getSupportFragmentManager();
                         String title = (String) tab.getText();
                         setTitle(title);
+                        List<Fragment> fragments = fragmentManager.getFragments();
+                        //Log.d("debug", " fragment size =  " + fragments.size());
+                        for(Fragment i : fragments){
+                            fragmentManager.beginTransaction().hide(i).commit();
+                            //Log.d("debug", " fragment hided =  "+ i.getTag());
+                        }
+                        if(tab.getText() == "Opportunity"){
+                            Fragment myFrag = adapter.getItem("Opportunity");
+                            //Log.d("debug", " fragment selected =  " + myFrag.getTag());
+                            fragmentManager.beginTransaction().show(myFrag).commit();
+                        }else if(tab.getText() == "Event"){
+                            Fragment myFrag = adapter.getItem("Event");
+                            //Log.d("debug", " fragment selected =  " + myFrag.getTag());
+                            fragmentManager.beginTransaction().show(myFrag).commit();
+                        }else if(tab.getText() == "Collaborator"){
+                            Fragment myFrag = adapter.getItem("Collaborator");
+                            //Log.d("debug", " fragment selected =  " + myFrag.getTag());
+                            fragmentManager.beginTransaction().show(myFrag).commit();
+                        }else if(tab.getText() == "Volunteer"){
+                            Fragment myFrag = adapter.getItem("Volunteer");
+                            //Log.d("debug", " fragment selected =  " + myFrag.getTag());
+                            fragmentManager.beginTransaction().show(myFrag).commit();
+                        }
+                        //todo clean the unused code
+                        //These create views on top of the frame.
+                        /*
+                        for(Fragment f : fragments){
+                            //Log.d("debug", " fragment = " + f.getTag());
+                            //Log.d("debug", " fragment position in adapter= " + adapter.getListPosition(f.getTag()));
+                            //fragmentManager.beginTransaction().remove(f).commit();
+                        }
+                        if(tab.getText() == "Opportunity"){
+                            Log.d("debug", "Tab Opportunity clicked");
+
+                            String tempTag = adapter.getTag("Opportunity");
+                            Log.d("debug", " fragment position in adapter=" +tempTag );
+                            Fragment fragment = getSupportFragmentManager().findFragmentByTag(tempTag);
+                            fragmentManager.beginTransaction().remove(fragment);
+                            Log.d("debug", " fragment removed");
+
+                            fragmentManager.beginTransaction()
+                                    .add(R.id.container, new OpportunityFragment()).commit();
+                        }else if(tab.getText() == "Event"){
+                            Log.d("debug","Tab Event clicked");
+
+                            String tempTag = adapter.getTag("Event");
+                            Log.d("debug", " fragment position in adapter=" +tempTag );
+                            Fragment fragment = getSupportFragmentManager().findFragmentByTag(tempTag);
+                            fragmentManager.beginTransaction().remove(fragment);
+                            Log.d("debug", " fragment removed");
+
+                            fragmentManager.beginTransaction()
+                                    .add(R.id.container, new EventFragment()).commit();
+                        }else if(tab.getText() == "Collaborator"){
+                            Log.d("debug","Tab nAclicked");
+
+                            String tempTag = adapter.getTag("Collaborator");
+                            Log.d("debug", " fragment position in adapter=" +tempTag );
+                            Fragment fragment = getSupportFragmentManager().findFragmentByTag(tempTag);
+                            fragmentManager.beginTransaction().remove(fragment);
+                            Log.d("debug", " fragment removed");
+
+                            fragmentManager.beginTransaction()
+                                    .add(R.id.container, new CollaboratorFragment()).commit();
+                        }else if(tab.getText() == "Volunteer"){
+                            Log.d("debug","Tab Volunteer clicked");
+
+                            String tempTag = adapter.getTag("Volunteer");
+                            Log.d("debug", " fragment position in adapter=" +tempTag );
+                            Fragment fragment = getSupportFragmentManager().findFragmentByTag(tempTag);
+                            fragmentManager.beginTransaction().remove(fragment);
+                            Log.d("debug", " fragment removed");
+
+                            fragmentManager.beginTransaction()
+                                    .add(R.id.container,new VolunteerFragment() ).commit();
+                        }
+                        */
                     }
                 });
         setupTabIcons();
@@ -158,7 +225,7 @@ public class CustomViewIconTextTabsActivity extends AppCompatActivity {
      * todo how about
      */
 
-    public void replaceFragments(OneFragment nextFrag, int containerViewID){//(Class fragmentClass) {
+    public void replaceFragments(OneFragment nextFrag, int containerViewID, String tag){//(Class fragmentClass) {
         /*Fragment fragment = null;
         try {
             fragment = (Fragment) fragmentClass.newInstance();
@@ -167,8 +234,30 @@ public class CustomViewIconTextTabsActivity extends AppCompatActivity {
         }*/
         // Insert the fragment by replacing any existing fragment
         //viewPager.setAdapter(null);
+
+
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(containerViewID, nextFrag).commit();
+
+        //remove existing detail fragment
+        Log.d("debug", " fragment size b/4 remove =  " + fragmentManager.getFragments().size());
+        Fragment myFrag2 = fragmentManager.findFragmentByTag(DETAIL_TAG);
+        if(myFrag2 != null) {
+            Log.d("debug", " fragment detail_tag =  " + DETAIL_TAG);
+            Log.d("debug", " fragment detail_tag =  " + myFrag2.getTag());
+
+            fragmentManager.beginTransaction().show(myFrag2).commit();
+            fragmentManager.beginTransaction().remove(myFrag2).commit();
+
+            fragmentManager.popBackStack();
+        }
+        Log.d("debug", " fragment size after remove =  " + fragmentManager.getFragments().size());
+
+        //hide current fragment.
+        Fragment myFrag = fragmentManager.findFragmentByTag(tag);
+        if(myFrag != null)
+            fragmentManager.beginTransaction().hide(myFrag).commit();
+        //create detail fragment with DETAIL_TAG as tag
+        fragmentManager.beginTransaction().replace(containerViewID, nextFrag, DETAIL_TAG).commit();
     }
 
 }

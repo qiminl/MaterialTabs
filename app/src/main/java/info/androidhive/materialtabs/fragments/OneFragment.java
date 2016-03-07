@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,13 +30,14 @@ public class OneFragment extends ListFragment implements AdapterView.OnItemClick
     private String NAME_TAG = "not set";
     private final static String ARGUMENT_TAG = "DETAIL";
 
+    private String DETAIL_TAG = "detail_tag";
     private ArrayList<String> commentList = new ArrayList<>();
-
     private ArrayList<Comment> comment_list = new ArrayList<>();
     private TextView title, date, description, like;
     private ImageView logo;
     private FloatingActionButton commant, fab;
     private ListView listView;
+    private int number_like = 0;
 
     public OneFragment() {
         // Required empty public constructor
@@ -63,6 +65,7 @@ public class OneFragment extends ListFragment implements AdapterView.OnItemClick
         comment_list.add(new Comment("3","1","1","none","none","wow wow wow wow"));
         comment_list.add(new Comment("4","1","1","none","none","la la la la"));
         comment_list.add(new Comment("5","1","1","none","none","wow wow wow wow"));
+
     }
 
     @Override
@@ -80,17 +83,18 @@ public class OneFragment extends ListFragment implements AdapterView.OnItemClick
         //Log.d("debug", "getTargetFragment().getTag() = " + getTargetFragment().getTag());
         //todo build db to fed data (a DB handler will be great)
         title = (TextView) view.findViewById(R.id.title);
-        title.setText(NAME_TAG);
+        title.setText("TITLE BA LA BA LA BA LA \n "+ " ba la ba la ");
 
         date= (TextView) view.findViewById(R.id.date);
         date.setText("date");
 
         description= (TextView) view.findViewById(R.id.description);
-        description.setText("123123 1231231231 2312 31 231 2312312");
+        description.setText("ba la ba la ba la \n");
         Log.d("debug", "view created");
 
         like= (TextView) view.findViewById(R.id.like);
-        like.setText("+1024");
+        number_like += 1024;
+        like.setText("Like +"+ Integer.toString(number_like));
 
         logo= (ImageView) view.findViewById(R.id.image);
         logo.setImageResource(R.drawable.testpic3);
@@ -104,25 +108,21 @@ public class OneFragment extends ListFragment implements AdapterView.OnItemClick
         commentList.add(myDiaryDBHandler.findCommentByID("2").getCOLUMN_COMMENT());
         commentList.add(myDiaryDBHandler.findCommentByID("3").getCOLUMN_COMMENT());
         commentList.add(myDiaryDBHandler.findCommentByID("4").getCOLUMN_COMMENT());
-        for(String a : commentList){
-            Log.d("debug", "commentList: " + a);
-        }
-
 
         listView = (ListView) view.findViewById(android.R.id.list);
         StableArrayAdapter adapter = new StableArrayAdapter(getActivity(), R.layout.item_in_list, commentList);
         //todo create a pool for adpater to work on memory
         setListAdapter(adapter);
-        getListView().setOnItemClickListener(this);
-        getListView().setVisibility(View.INVISIBLE);
+        //getListView().setOnItemClickListener(this);
+        getListView().setVisibility(View.VISIBLE);
     }
 
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.d("debug", "position=" + position + "; id=" + id);
-        Log.d("debug", "view.getTag() = " + view.getTag() );
-        Log.d("debug", "parent.getItemAtPosition(position) = " + parent.getItemAtPosition(position));
+        //Log.d("debug", "position=" + position + "; id=" + id);
+        //Log.d("debug", "view.getTag() = " + view.getTag() );
+        //Log.d("debug", "parent.getItemAtPosition(position) = " + parent.getItemAtPosition(position));
         //todo decide using activity or fragment
 
         String object_name = (String)parent.getItemAtPosition(position);

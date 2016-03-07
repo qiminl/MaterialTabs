@@ -35,6 +35,7 @@ public class OpportunityFragment extends ListFragment implements AdapterView.OnI
     private ViewPager viewPager;
     private TextView textView;
     private ArrayList<String> list = new ArrayList<>();
+    private String DETAIL_TAG = "detail_tag";//todo make it public in @string
 
     public OpportunityFragment() {
         // Required empty public constructor
@@ -56,7 +57,7 @@ public class OpportunityFragment extends ListFragment implements AdapterView.OnI
         list.add("Opportunity 1");        list.add("Opportunity 2");        list.add("Opportunity 3");
         list.add("Opportunity 4");        list.add("Opportunity 5");
         View view = inflater.inflate(R.layout.fragment_opportunity, container, false);
-        Log.d("debug", "opportunity view created");
+        //Log.d("debug", "opportunity view created");
 
         //listview array adapter
         //StableArrayAdapter adapter = new StableArrayAdapter(getActivity(), R.layout.item_in_list, list);
@@ -136,31 +137,14 @@ public class OpportunityFragment extends ListFragment implements AdapterView.OnI
         OneFragment nextFrag= new OneFragment().newInstance(object_name);
         int containerViewID = ((ViewGroup)getView().getParent()).getId();
 
-        Log.d("debug", "containerViewID: " + containerViewID);
-        Log.d("debug", "viewpager id: " + R.id.viewpager);
-        Log.d("debug", "container id: " + R.id.container);
+        //Log.d("debug", "containerViewID: " + containerViewID);
+        //Log.d("debug", "viewpager id: " + R.id.viewpager);
+        //Log.d("debug", "container id: " + R.id.container);
+        //Log.d("debug", "fragment tag: " + getTag());
         //use its container id in order to replace
-        ((CustomViewIconTextTabsActivity) getActivity()).replaceFragments(nextFrag, R.id.container);
-
+        ((CustomViewIconTextTabsActivity) getActivity()).replaceFragments(nextFrag, R.id.container, getTag());
     }
-/* if need for return value from details
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch(requestCode) {
-            case 1:
 
-                if (resultCode == Activity.RESULT_OK) {
-                    // After Ok code.
-                    Log.d("debug", "RESULT_OK");
-                } else if (resultCode == Activity.RESULT_CANCELED){
-                    Log.d("debug", "RESULT_CANCELED");
-                    // After Cancel code.
-                }
-
-                break;
-        }
-    }
-    */
 
     /**
      * todo fill content with db, so that it can merge into collaborator

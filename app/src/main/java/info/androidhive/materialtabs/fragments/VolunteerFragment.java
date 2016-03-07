@@ -25,7 +25,7 @@ public class VolunteerFragment extends ListFragment implements AdapterView.OnIte
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //todo hmm
-        Log.d("debug", "Volunteer view created");
+        //Log.d("debug", "Volunteer view created");
         return inflater.inflate(R.layout.fragment_opportunity, container, false);
     }
 
